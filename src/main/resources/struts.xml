@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.action.extension" value="xhtml" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 动态方法调用，为true时，就可以在struts.xml配置“*”的通配符，来调用action里的方法 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.saveDir" value="/tmp" />
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 在struts.xml声明,action交给spring3.x托管 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.multipart.maxSize" value="1024000000" />
+	<constant name="struts.configuration.xml.reload" value="true"/>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+	
+	<!-- <package name="webapp-default" extends="json-default"> -->
+	<package name="webapp-default" namespace="/" extends="struts-default">
+		<action name="testStrutsAction_*" class="testStrutsAction" method="{1}">
+			<!-- struts2内置返回 -->
+			<result name="save">/struts2.jsp</result>
+			<!-- freemarker返回 -->
+			<result name="freemarker" type="freemarker">/WEB-INF/ftl/struts2.ftl</result>
+		</action>
+		<action name="hibernateAction_*" class="hibernateAction" method="{1}">
+			<result name="freemarker" type="freemarker">/WEB-INF/ftl/hibernate.ftl</result>
+		</action>
+		<action name="jdoAction_*" class="jdoAction" method="{1}">
+			<result name="save" type="freemarker">/WEB-INF/ftl/jdo.ftl</result>
+		</action>
+	</package>
+	
+	
+	<include file="com/gm/osoa/action/struts_*.xml"></include>
+</struts>    
